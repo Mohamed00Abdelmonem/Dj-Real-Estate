@@ -1,0 +1,107 @@
+@font-face {
+    font-family: "flaticon";
+    src: url("./flaticon.ttf?bc41d05ae6db11f9cc74dc44dad26119") format("truetype"),
+url("./flaticon.woff?bc41d05ae6db11f9cc74dc44dad26119") format("woff"),
+url("./flaticon.woff2?bc41d05ae6db11f9cc74dc44dad26119") format("woff2"),
+url("./flaticon.eot?bc41d05ae6db11f9cc74dc44dad26119#iefix") format("embedded-opentype"),
+url("./flaticon.svg?bc41d05ae6db11f9cc74dc44dad26119#flaticon") format("svg");
+}
+
+i[class^="flaticon-"]:before, i[class*=" flaticon-"]:before {
+    font-family: flaticon !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.flaticon-user:before {
+    content: "\f101";
+}
+.flaticon-user-1:before {
+    content: "\f102";
+}
+.flaticon-speech-bubble:before {
+    content: "\f103";
+}
+.flaticon-calendar:before {
+    content: "\f104";
+}
+.flaticon-chat:before {
+    content: "\f105";
+}
+.flaticon-next:before {
+    content: "\f106";
+}
+.flaticon-next-1:before {
+    content: "\f107";
+}
+.flaticon-share:before {
+    content: "\f108";
+}
+.flaticon-share-1:before {
+    content: "\f109";
+}
+.flaticon-left-and-right-arrows:before {
+    content: "\f10a";
+}
+.flaticon-heart:before {
+    content: "\f10b";
+}
+.flaticon-camera:before {
+    content: "\f10c";
+}
+.flaticon-video-player:before {
+    content: "\f10d";
+}
+.flaticon-maps-and-flags:before {
+    content: "\f10e";
+}
+.flaticon-check:before {
+    content: "\f10f";
+}
+.flaticon-envelope:before {
+    content: "\f110";
+}
+.flaticon-phone-call:before {
+    content: "\f111";
+}
+.flaticon-call:before {
+    content: "\f112";
+}
+.flaticon-clock:before {
+    content: "\f113";
+}
+.flaticon-play:before {
+    content: "\f114";
+}
+.flaticon-loupe:before {
+    content: "\f115";
+}
+.flaticon-user-2:before {
+    content: "\f116";
+}
+.flaticon-bed:before {
+    content: "\f117";
+}
+.flaticon-shower:before {
+    content: "\f118";
+}
+.flaticon-pencil:before {
+    content: "\f119";
+}
+.flaticon-two-overlapping-square:before {
+    content: "\f11a";
+}
+.flaticon-printer:before {
+    content: "\f11b";
+}
+.flaticon-comment:before {
+    content: "\f11c";
+}
+.flaticon-home:before {
+    content: "\f11d";
+}
