@@ -112,3 +112,56 @@
 
 ## 29. Property Management Tools
 - Provide property owners with tools to manage their properties, such as rent collection, maintenance requests, and tenant communication.
+
+
+
+
+
+# Property Table Fields
+
+## Basic Information
+- **title**: Property title
+- **price**: Property price
+- **property status**: Rent, Sell, Buy
+- **sku**: Stock Keeping Unit (unique identifier)
+- **type**: Apartment, House, Other
+- **bathrooms**: Number of bathrooms
+- **bedrooms**: Number of bedrooms
+- **agencies**: Agencies handling the property
+- **parking**: Parking availability (Yes/No)
+- **area m²**: Property area in square meters
+- **land size m²**: Land size in square meters
+- **year built**: Year the property was built
+- **about**: Description of the property
+
+## Multimedia
+- **images**: Multiple images of the property
+- **floor plans images**: Multiple images of the floor plans
+- **property video**: Video of the property
+
+## Additional Information
+- **features & amenities**: Multiple features and amenities
+- **location map**: Location map (URL or embed code)
+- **created_at**: Creation timestamp
+- **views_count**: Number of views
+- **locations**: Property locations (text)
+
+
+
+# Agents Table Fields
+
+## Basic Information
+- **name**: Agent's name (title)
+- **sub title**: Agent's job title
+- **about**: Description or biography of the agent
+
+## Contact Information
+- **call phone**: Multiple phone numbers for contact
+- **e-mail**: Agent's email address
+
+## Work Schedule
+- **time work**: Working hours (from ... to ...)
+
+## Media
+- **image**: Agent's profile image
+- **rate**: Agent's rating (e.g., customer reviews or performance rating)
