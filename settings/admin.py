@@ -1,28 +1,23 @@
 from django.contrib import admin
 from .models import Company, Phone, SocialMediaLinks
 
-# Inline model for Phone related to Company
-class PhoneInline(admin.TabularInline):
+
+
+
+class PhoneTabularInline(admin.TabularInline):
     model = Phone
-    readonly_fields = ('id',)
-    extra = 1
-
-# Inline model for SocialMediaLinks related to Company
-class SocialMediaLinksInline(admin.TabularInline):
+   
+class SocialMediaLinksTabular(admin.TabularInline):
     model = SocialMediaLinks
-    readonly_fields = ('id',)
-    extra = 1
 
-# Admin for Company, including inlines for Phone and SocialMediaLinks
-@admin.register(Company)
+
+
+
+
 class CompanyAdmin(admin.ModelAdmin):
-    inlines = [PhoneInline, SocialMediaLinksInline]
+    list_display = ('title', 'email', 'location', 'created_at')
+    list_filter = ('title', 'created_at')
+    search_fields = ('title', 'about', 'email', 'location')
+    inlines = [PhoneTabularInline, SocialMediaLinksTabular]
 
-# Registering Phone and SocialMediaLinks separately
-@admin.register(Phone)
-class PhoneAdmin(admin.ModelAdmin):
-    list_display = ('phone', 'company')
-
-@admin.register(SocialMediaLinks)
-class SocialMediaLinksAdmin(admin.ModelAdmin):
-    list_display = ('account_name', 'account_link', 'company')
+admin.site.register(Company, CompanyAdmin)
