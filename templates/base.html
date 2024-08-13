@@ -1,11 +1,12 @@
-{% load static %}
 
+
+{% load static %}
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 
 <head>
     <meta charset="utf-8">
-    <title>HomListi | Home 01 </title>
+    <title> About Page </title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon Start Here -->
@@ -32,8 +33,6 @@
     <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
     <!-- Pannellum -->
     <link rel="stylesheet" href="{% static 'css/pannellum.css' %}">
-    <!-- noUIrangle slider -->
-    <link rel="stylesheet" href="{% static 'vendor/noUiSlider/nouislider.min.css' %}">
     <!-- Style Css Start Here -->
     <link rel="stylesheet" href="{% static 'style.css' %}">
     <!-- Google Font Start Here -->
@@ -43,7 +42,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
-
 </head>
 
 <body class="sticky-header">
@@ -53,149 +51,129 @@
     <!--=====================================-->
     <!--=   Preloader     Start             =-->
     <!--=====================================-->
-
     <div id="preloader"></div>
     <!--=====================================-->
     <!--=   Preloader     End               =-->
     <!--=====================================-->
     <div class="wrapper" id="wrapper">
     <!--=====================================-->
-    <!--=   Header     Start             =-->
+    <!--=   Header     Start                =-->
     <!--=====================================-->
 
-        <header class="header">
-            <div id="rt-sticky-placeholder"></div>
-            <div id="header-menu" class="header-menu menu-layout1">
-                <div class="container">
-                    <div class="row d-flex align-items-center">
-                        <div class="col-xl-2 col-lg-2">
-                            <div class="logo-area">
-                                <a href="index.html" class="temp-logo">
-                                    <img src="{% static 'img/logo_light.svg' %}" width="157" height="40" alt="logo" class="img-fluid">
-                                </a>
-                            </div>
+    <header class="rt-header sticky-on">
+        <div id="sticky-placeholder"></div>
+        <div id="navbar-wrap" class="header-menu menu-layout1 header-menu menu-layout3">
+            <div class="container">
+                <div class="row d-flex align-items-center">
+                    <div class="col-xl-2 col-lg-2">
+                        <div class="logo-area">
+                            <a href="/" class="temp-logo">
+                                <img src="{% static 'img/logo.svg' %}" width="157" height="40" alt="logo" class="img-fluid">
+                            </a>
                         </div>
-                        <div class="col-xl-6 col-lg-6 d-flex justify-content-center position-static">
-                            <nav id="dropdown" class="template-main-menu">
-                                <ul>
-                                    <li>
-                                        <a href="index.html" class="active">Home</a>
-                                       
-                                    </li>
-                                    <li>
-                                        <a href="about-1.html">About</a>
-                                    </li>
-                                    <li>
-                                        <a href="with-sidebar2.html">Property</a>
-                                        <ul class="dropdown-menu-col-1">
-                                            <li>
-                                                <a href="half-map1.html">Properties Map Grid</a>
-                                            </li>
-                                            <li>
-                                                <a href="half-map2.html">Properties Map List</a>
-                                            </li>
-                                            <li>
-                                                <a href="with-sidebar.html">Properties Grid</a>
-                                            </li>
-                                            <li>
-                                                <a href="with-sidebar2.html">Properties List</a>
-                                            </li>
-                                            <li>
-                                                <a href="without-sidebar.html">Properties Full Width</a>
-                                            </li>
-                                            <li>
-                                                <a href="single-listing1.html">Single Property 1</a>
-                                            </li>
-                                            <li>
-                                                <a href="single-listing2.html">Single Property 2</a>
-                                            </li>
-                                            <li>
-                                                <a href="single-listing3.html">Single Property 3</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="agent-lists1.html">Agents</a>
-                                        <ul class="dropdown-menu-col-1">
-                                            <li>
-                                                <a href="agent-lists1.html">Agent List Page</a>
-                                            </li>
-                                            <li>
-                                                <a href="agency-lists1.html">Agencies List Page</a>
-                                            </li>
-                                            <li>
-                                                <a href="single-agent1.html">Single Agent Page</a>
-                                            </li>
-                                            <li>
-                                                <a href="single-agency1.html">Single Agency Page</a>
-                                            </li>
-                                        </ul>
-                                    </li>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 d-flex justify-content-center position-static">
+                        <nav id="dropdown" class="template-main-menu template-main-menu-3">
+                            <ul>
+                                <li>
+                                    <a href="/" class = "active">Home</a>
                                     
-                                    <li class="hide-on-desktop-menu">
-                                        <a href="index.html">Pages</a>
-                                        <ul>
-                                            <li>
-                                                <a href="about-1.html">About</a>
-                                            </li>
-                                            <li>
-                                                <a href="with-sidebar2.html">Property</a>
-                                            </li>
-                                            <li>
-                                                <a href="blog1.html">Blog</a>
-                                            </li>
-                                            <li>
-                                                <a href="404.html">404 Error</a>
-                                            </li>
-                                            <li>
-                                                <a href="contact.html">Contact page</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="contact.html">Contact</a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                        <div class="col-xl-4 col-lg-4 d-flex justify-content-end">
-                            <div class="header-action-layout1">
-                                <ul class="action-list">
-                                    <li class="action-item-style left-right-btn">
-                                        <a href="compare.html" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                            title="Compare">
-                                            <i class="flaticon-left-and-right-arrows"></i>
-                                            <div class="item-count">0</div>
-                                        </a>
-                                    </li>
-                                    <li class="action-item-style wish-btn">
-                                        <a href="favourite.html" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                            title="Favourites">
-                                            <i class="flaticon-heart"></i>
-                                            <div class="item-count">0</div>
-                                        </a>
-                                    </li>
-                                    <li class="action-item-style my-account">
-                                        <a href="account.html" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                            title="Sign In">
-                                            <i class="flaticon-user-1"></i>
-                                        </a>
-                                    </li>
-                                    <li class="listing-button">
-                                        <a href="post-add.html" class="listing-btn">
-                                            <span>
-                                                <i class="fas fa-plus-circle"></i>
-                                            </span>
-                                            <span class="item-text">Add Property</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+                                </li>
+                                <li>
+                                    <a href="{% url 'about' %}" class="">About</a>
+                                </li>
+                                <li>
+                                    <a href="with-sidebar2.html">Property</a>
+                                    <ul class="dropdown-menu-col-1">
+                                        <li>
+                                            <a href="half-map1.html">Properties Map Grid</a>
+                                        </li>
+                                        <li>
+                                            <a href="half-map2.html">Properties Map List</a>
+                                        </li>
+                                        <li>
+                                            <a href="with-sidebar.html">Properties Grid</a>
+                                        </li>
+                                        <li>
+                                            <a href="with-sidebar2.html">Properties List</a>
+                                        </li>
+                                        <li>
+                                            <a href="without-sidebar.html">Properties Full Width</a>
+                                        </li>
+                                        <li>
+                                            <a href="single-listing1.html">Single Property 1</a>
+                                        </li>
+                                        <li>
+                                            <a href="single-listing2.html">Single Property 2</a>
+                                        </li>
+                                        <li>
+                                            <a href="single-listing3.html">Single Property 3</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="agent-lists1.html">Agents</a>
+                                    <ul class="dropdown-menu-col-1">
+                                        <li>
+                                            <a href="agent-lists1.html">Agent List Page</a>
+                                        </li>
+                                        <li>
+                                            <a href="agency-lists1.html">Agencies List Page</a>
+                                        </li>
+                                        <li>
+                                            <a href="single-agent1.html">Single Agent Page</a>
+                                        </li>
+                                        <li>
+                                            <a href="single-agency1.html">Single Agency Page</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                               
+                              
+                                <li>
+                                    <a href="{% url 'contact' %}">Contact</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 d-flex justify-content-end">
+                        <div class="header-action-layout1">
+                            <ul class="action-list">
+                                <li class="action-item-style left-right-btn">
+                                    <a href="compare.html" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                        title="Compare">
+                                        <i class="flaticon-left-and-right-arrows icon-round"></i>
+                                        <div class="item-count">0</div>
+                                    </a>
+                                </li>
+                                <li class="action-item-style wish-btn">
+                                    <a href="favourite.html" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                        title="Favourites">
+                                        <i class="flaticon-heart icon-round"></i>
+                                        <div class="item-count">0</div>
+                                    </a>
+                                </li>
+                                <li class="action-item-style my-account">
+                                    <a href="account.html" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                        title="Sign In">
+                                        <i class="flaticon-user-1 icon-round"></i>
+                                    </a>
+                                </li>
+                                <li class="listing-button">
+                                    <a href="post-add.html" class="listing-btn">
+                                        <span>
+                                            <i class="fas fa-plus-circle"></i>
+                                        </span>
+                                        <span class="item-text">Add Property</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
-        </header>
+        </div>
+    </header>
         <div
             class="rt-header-menu mean-container position-relative"
             id="meanmenu">
@@ -298,9 +276,15 @@
                 </div>
             </div>
         </div>
-    <!--=====================================-->
-    <!--=   Main Banner     Start           =-->
-    <!--=====================================-->
+    
+
+    
+
+
+
+
+
+
 
 
 
@@ -309,6 +293,12 @@
     {% block body %}
     
     {% endblock body %}
+
+
+
+
+
+
 
 
 
@@ -481,7 +471,7 @@
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="copyright-area2">
-                                <p>2022© All rightre served by RadiusTheme</p>
+                                <p>2024© All rightre served by Mohamed Abdelmonem</p>
                             </div>
                         </div>
                     </div>
