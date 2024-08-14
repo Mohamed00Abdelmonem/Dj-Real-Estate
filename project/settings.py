@@ -38,10 +38,28 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+
+    'location_field.apps.DefaultConfig',
+
     'settings',
     'property',
     
 ]
+
+
+LOCATION_FIELD = {
+    'provider.google.api': '//maps.google.com/maps/api/js?sensor=false',
+    'provider.google.api_key': 'AIzaSyDR5RBpBMYmY56y4W4GwEwf3De-sKAaGaM',
+    'provider.google.api_libraries': '',
+    'provider.google.map.type': 'SATELLITE',  # نوع الخريطة إلى قمر صناعي (سكنية)
+    'provider.google.center': {'lat': 30.0444, 'lng': 31.2357},  # إحداثيات القاهرة
+    'provider.google.zoom': 12,  # مستوى التكبير الافتراضي
+}
+
+
+
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

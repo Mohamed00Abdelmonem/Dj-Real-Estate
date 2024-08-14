@@ -1,0 +1,14 @@
+{% extends "admin/base.html" %}
+
+{% load static %}
+
+{% block extrahead %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/custom_admin.css' %}">
+    <script src="{% static 'js/custom_admin.js' %}"></script>
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <p>Test Content</p>
+    {{ block.super }}
+{% endblock %}
