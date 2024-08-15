@@ -193,7 +193,7 @@
                                         <div class="col-lg-6 col-md-6">
                                              <div class="property-box2 wow animated fadeInUp" data-wow-delay=".3s">
                                                 <div class="item-img">
-                                                    <a href="single-listing1.html"><img src="{{item.image.url}}" alt="blog" width="510" height="340"></a>
+                                                    <a href="{% url 'property:property_detial' item.id %}"><img src="{{item.image.url}}" alt="blog" width="510" height="340"></a>
                                                     <div class="item-category-box1">
                                                         <div class="item-category">For {{item.status}}</div>
                                                     </div>
@@ -220,7 +220,7 @@
                                                 <div class="item-category10"><a href="single-listing1.html">{{item.type}}</a></div>
                                                 <div class="item-content">
                                                     <div class="verified-area">
-                                                        <h3 class="item-title"><a href="single-listing1.html">{{item.tilte}}</a></h3>
+                                                        <h3 class="item-title"><a href="{% url 'property:property_detial' item.id %}">{{item.tilte}}</a></h3>
                                                     </div>
                                                     <div class="location-area"><i class="flaticon-maps-and-flags"></i>{{item.city}}</div>
                                                     <div class="item-categoery3">
@@ -268,7 +268,7 @@
                                             <div class="col-lg-12">
                                                 <div class="property-box2 property-box4 wow animated fadeInUp" data-wow-delay=".6s">
                                                     <div class="item-img">
-                                                        <a href="single-listing1.html"><img src="{{object.image.url}}" alt="blog" width="250" height="200"></a>
+                                                        <a href="{% url 'property:property_detial' object.id %}"><img src="{{object.image.url}}" alt="blog" width="250" height="200"></a>
                                                         <div class="item-category-box1">
                                                             <div class="item-category">For {{object.status}}</div>
                                                         </div>
@@ -292,7 +292,7 @@
                                                             </ul>
                                                         </div>
                                                         <div class="verified-area">
-                                                            <h3 class="item-title"><a href="single-listing1.html">{{object.tilte}}</a></h3>
+                                                            <h3 class="item-title"><a href="{% url 'property:property_detial' object.id %}">{{object.tilte}}</a></h3>
                                                         </div>
                                                         <div class="location-area"><i class="flaticon-maps-and-flags"></i>{{object.city}}</div>
                                                         <div class="item-categoery3">
