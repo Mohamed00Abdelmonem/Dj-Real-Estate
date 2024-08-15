@@ -107,104 +107,38 @@
                   >
                     <div class="feature-box3 swiper-container">
                       <div class="swiper-wrapper">
+                      {% for  ImagesProperty in property.ImagesProperty.all %}
+                      
                         <div class="swiper-slide">
                           <div class="feature-img1 zoom-image-hover">
                             <img
-                              src="{% static 'img/blog/product1-1.jpg' %}"
+                              src="{{ImagesProperty.Image.url}}"
                               alt="feature"
                               width="798"
                               height="420"
                             />
                           </div>
                         </div>
-                        <div class="swiper-slide">
-                          <div class="feature-img1 zoom-image-hover">
-                            <img
-                              src="{% static 'img/blog/product3.jpg' %}"
-                              alt="feature"
-                              width="798"
-                              height="420"
-                            />
-                          </div>
-                        </div>
+                        {% endfor %}
 
-                        <div class="swiper-slide">
-                          <div class="feature-img1 zoom-image-hover">
-                            <img
-                              src="{% static 'img/blog/product4.jpg' %}"
-                              alt="feature"
-                              width="798"
-                              height="420"
-                            />
-                          </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                          <div class="feature-img1 zoom-image-hover">
-                            <img
-                              src="{% static 'img/blog/product5.jpg' %}"
-                              alt="feature"
-                              width="798"
-                              height="420"
-                            />
-                          </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                          <div class="feature-img1 zoom-image-hover">
-                            <img
-                              src="{% static 'img/blog/product6.jpg' %}"
-                              alt="feature"
-                              width="798"
-                              height="420"
-                            />
-                          </div>
-                        </div>
+                       
                       </div>
                     </div>
                     <div class="featured-thum-slider2 swiper-container">
                       <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                          <div class="item-img">
-                            <img
-                              src="{% static 'img/blog/product2.jpg' %}"
-                              alt="feature"
-                              width="154"
-                              height="100"
-                            />
-                          </div>
-                        </div>
-                        <div class="swiper-slide">
-                          <div class="item-img">
-                            <img
-                              src="{% static 'img/blog/product7.jpg' %}"
-                              alt="feature"
-                              width="154"
-                              height="100"
-                            />
-                          </div>
-                        </div>
-                        <div class="swiper-slide">
-                          <div class="item-img">
-                            <img
-                              src="{% static 'img/blog/product8.jpg' %}"
-                              alt="feature"
-                              width="154"
-                              height="100"
-                            />
-                          </div>
-                        </div>
+                                            {% for  ImagesProperty in property.ImagesProperty.all %}
 
                         <div class="swiper-slide">
                           <div class="item-img">
                             <img
-                              src="{% static 'img/blog/product9.jpg' %}"
+                              src="{{ImagesProperty.Image.url}}"
                               alt="feature"
                               width="154"
                               height="100"
                             />
                           </div>
                         </div>
+                                                {% endfor %}
 
                         <div class="swiper-slide">
                           <div class="item-img">
