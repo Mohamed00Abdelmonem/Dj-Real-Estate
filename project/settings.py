@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     'location_field.apps.DefaultConfig',
     'django.contrib.humanize',
+    'hitcount',
 
 
     'settings',

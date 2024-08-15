@@ -61,12 +61,12 @@
                     <div class="single-item-address">
                       <ul>
                         <li>
-                        <i class="fas fa-map-marker-alt"></i>{{property.city}}, 
+                        <i class="fas fa-map-marker-alt"></i>{{property.city}}, And 
                           This is the latitude and longitude: {{property.location}}
 
                         </li>
                         <li><i class="fas fa-clock"></i>{{ property.created_at|naturaltime }}</li>
-                        <li><i class="fas fa-eye"></i>Views: 1,230</li>
+                          <li><i class="fas fa-eye"></i>Views: {{ property.view_count|intcomma }}</li>
                       </ul>
                     </div>
                   </div>
@@ -396,18 +396,19 @@
                       </div>
                     </div>
                     <div class="overview-area map-box">
-                      <h3 class="item-title">Map Location</h3>
-                      <div class="item-map">
-                        <iframe
-                          src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14604.942936504207!2d90.42287424999999!3d23.774618500000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sbd!4v1640231732625!5m2!1sen!2sbd"
-                          width="731"
-                          height="349"
-                          style="border: 0"
-                          allowfullscreen=""
-                          loading="lazy"
-                        ></iframe>
-                      </div>
+                        <h3 class="item-title">Map Location</h3>
+                        <div class="item-map">
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14604.942936504207!2d{{ property.get_lat_lng.1 }}!3d{{ property.get_lat_lng.0 }}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sbd!4v1640231732625!5m2!1sen!2sbd"
+                                width="731"
+                                height="349"
+                                style="border: 0"
+                                allowfullscreen=""
+                                loading="lazy"
+                            ></iframe>
+                        </div>
                     </div>
+
                     <div class="overview-area floor-plan-box">
                       <h3 class="item-title">Floor Plans</h3>
                       <div id="accordion" class="accordion">

@@ -220,7 +220,7 @@
                                                 <div class="item-category10"><a href="single-listing1.html">{{item.type}}</a></div>
                                                 <div class="item-content">
                                                     <div class="verified-area">
-                                                        <h3 class="item-title"><a href="{% url 'property:property_detial' item.id %}">{{item.tilte}}</a></h3>
+                                                        <h3 class="item-title"><a href="{% url 'property:property_detial' item.id %}">{{item}}</a></h3>
                                                     </div>
                                                     <div class="location-area"><i class="flaticon-maps-and-flags"></i>{{item.city}}</div>
                                                     <div class="item-categoery3">
@@ -292,7 +292,7 @@
                                                             </ul>
                                                         </div>
                                                         <div class="verified-area">
-                                                            <h3 class="item-title"><a href="{% url 'property:property_detial' object.id %}">{{object.tilte}}</a></h3>
+                                                            <h3 class="item-title"><a href="{% url 'property:property_detial' object.id %}">{{object}}</a></h3>
                                                         </div>
                                                         <div class="location-area"><i class="flaticon-maps-and-flags"></i>{{object.city}}</div>
                                                         <div class="item-categoery3">

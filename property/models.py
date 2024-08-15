@@ -15,7 +15,7 @@ PROPERTY_TYPES = (
         ('Warehouse', 'Warehouse'))
                                     
 class Property(models.Model):
-    tilte = models.CharField(max_length=50)
+    title = models.CharField(max_length=50)
     price = models.FloatField(max_length=10)
     status = models.CharField(choices=(('Rent', 'Rent'), ('Sale', 'Sale'), ('Buy', 'Buy')), max_length=10)
     sku = models.IntegerField(unique=True, default=random.randint(1, 10000))
@@ -33,9 +33,18 @@ class Property(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(default=timezone.now)
+    view_count = models.PositiveIntegerField(default=0)  # Added field
+
+    def get_lat_lng(self):
+        """Extract latitude and longitude from the location field."""
+        if self.location:
+            lat_lng = self.location.split(',')
+            if len(lat_lng) == 2:
+                return lat_lng[0], lat_lng[1]
+        return '0', '0'  # default values
 
     def __str__(self) -> str:
-        return self.tilte
+        return self.title
 
 class ImagesProperty(models.Model):
     Image = models.ImageField(upload_to='property_images')
