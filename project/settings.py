@@ -40,6 +40,8 @@ INSTALLED_APPS = [
 
 
     'location_field.apps.DefaultConfig',
+    'django.contrib.humanize',
+
 
     'settings',
     'property',

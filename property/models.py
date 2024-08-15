@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 import random
 from location_field.models.plain import PlainLocationField
 
@@ -30,9 +31,11 @@ class Property(models.Model):
     location = PlainLocationField(based_fields=['city'], zoom=9, default='30.0444,31.2357')
     video = models.FileField(upload_to='prop', null=True, blank=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(default=timezone.now)
 
+    def __str__(self) -> str:
+        return self.tilte
 
 class ImagesProperty(models.Model):
     Image = models.ImageField(upload_to='property_images')

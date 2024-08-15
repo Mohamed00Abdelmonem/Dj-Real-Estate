@@ -2,6 +2,7 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% load humanize %}
 
 
 
@@ -39,11 +40,11 @@
                 <div class="row">
                   <div class="col-lg-6 col-md-12">
                     <div class="single-list-cate">
-                      <div class="item-categoery">For Rent</div>
+                      <div class="item-categoery">For {{property.status}}</div>
                     </div>
                   </div>
                   <div class="col-lg-6 col-md-12">
-                    <div class="single-list-price">$12,500</div>
+                    <div class="single-list-price">${{property.price}}</div>
                   </div>
                 </div>
                 <div class="row align-items-center">
@@ -52,7 +53,7 @@
                       <div class="item-title">
                         <h3>
                           <a href="single-listing2.html"
-                            >Family House For Rent</a
+                            >{{property}}</a
                           >
                         </h3>
                       </div>
@@ -60,10 +61,11 @@
                     <div class="single-item-address">
                       <ul>
                         <li>
-                          <i class="fas fa-map-marker-alt"></i>House#18,
-                          Road#07, Albany, New York, 08525 /
+                        <i class="fas fa-map-marker-alt"></i>{{property.city}}, 
+                          This is the latitude and longitude: {{property.location}}
+
                         </li>
-                        <li><i class="fas fa-clock"></i>7 months ago /</li>
+                        <li><i class="fas fa-clock"></i>{{ property.created_at|naturaltime }}</li>
                         <li><i class="fas fa-eye"></i>Views: 1,230</li>
                       </ul>
                     </div>
@@ -108,7 +110,7 @@
                         <div class="swiper-slide">
                           <div class="feature-img1 zoom-image-hover">
                             <img
-                              src="img/blog/product1-1.jpg"
+                              src="{% static 'img/blog/product1-1.jpg' %}"
                               alt="feature"
                               width="798"
                               height="420"
@@ -118,18 +120,7 @@
                         <div class="swiper-slide">
                           <div class="feature-img1 zoom-image-hover">
                             <img
-                              src="img/blog/product3.jpg"
-                              alt="feature"
-                              width="798"
-                              height="420"
-                            />
-                          </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                          <div class="feature-img1 zoom-image-hover">
-                            <img
-                              src="img/blog/product4.jpg"
+                              src="{% static 'img/blog/product3.jpg' %}"
                               alt="feature"
                               width="798"
                               height="420"
@@ -140,7 +131,7 @@
                         <div class="swiper-slide">
                           <div class="feature-img1 zoom-image-hover">
                             <img
-                              src="img/blog/product5.jpg"
+                              src="{% static 'img/blog/product4.jpg' %}"
                               alt="feature"
                               width="798"
                               height="420"
@@ -151,7 +142,18 @@
                         <div class="swiper-slide">
                           <div class="feature-img1 zoom-image-hover">
                             <img
-                              src="img/blog/product6.jpg"
+                              src="{% static 'img/blog/product5.jpg' %}"
+                              alt="feature"
+                              width="798"
+                              height="420"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                          <div class="feature-img1 zoom-image-hover">
+                            <img
+                              src="{% static 'img/blog/product6.jpg' %}"
                               alt="feature"
                               width="798"
                               height="420"
@@ -165,7 +167,7 @@
                         <div class="swiper-slide">
                           <div class="item-img">
                             <img
-                              src="img/blog/product2.jpg"
+                              src="{% static 'img/blog/product2.jpg' %}"
                               alt="feature"
                               width="154"
                               height="100"
@@ -175,7 +177,7 @@
                         <div class="swiper-slide">
                           <div class="item-img">
                             <img
-                              src="img/blog/product7.jpg"
+                              src="{% static 'img/blog/product7.jpg' %}"
                               alt="feature"
                               width="154"
                               height="100"
@@ -185,18 +187,7 @@
                         <div class="swiper-slide">
                           <div class="item-img">
                             <img
-                              src="img/blog/product8.jpg"
-                              alt="feature"
-                              width="154"
-                              height="100"
-                            />
-                          </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                          <div class="item-img">
-                            <img
-                              src="img/blog/product9.jpg"
+                              src="{% static 'img/blog/product8.jpg' %}"
                               alt="feature"
                               width="154"
                               height="100"
@@ -207,7 +198,18 @@
                         <div class="swiper-slide">
                           <div class="item-img">
                             <img
-                              src="img/blog/product10.jpg"
+                              src="{% static 'img/blog/product9.jpg' %}"
+                              alt="feature"
+                              width="154"
+                              height="100"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                          <div class="item-img">
+                            <img
+                              src="{% static 'img/blog/product10.jpg' %}"
                               alt="feature"
                               width="154"
                               height="100"
@@ -447,7 +449,7 @@
                             <div class="card-body">
                               <div class="item-img">
                                 <img
-                                  src="img/figure/floor_plan.jpg"
+                                  src="{% static 'img/figure/floor_plan.jpg' %}"
                                   alt="shape"
                                 />
                               </div>
@@ -492,7 +494,7 @@
                             <div class="card-body">
                               <div class="item-img">
                                 <img
-                                  src="img/figure/floor_plan.jpg"
+                                  src="{% static 'img/figure/floor_plan.jpg' %}"
                                   alt="shape"
                                 />
                               </div>
@@ -537,7 +539,7 @@
                             <div class="card-body">
                               <div class="item-img">
                                 <img
-                                  src="img/figure/floor_plan.jpg"
+                                  src="{% static 'img/figure/floor_plan.jpg' %}"
                                   alt="shape"
                                 />
                               </div>
@@ -550,7 +552,7 @@
                       <h3 class="item-title">Property Video</h3>
                       <div class="item-img">
                         <img
-                          src="img/blog/listing1.jpg"
+                          src="{% static 'img/blog/listing1.jpg' %}"
                           alt="map"
                           width="731"
                           height="349"
@@ -773,7 +775,7 @@
                       <div class="flex-shrink-0">
                         <div class="item-logo">
                           <img
-                            src="img/theme2.png"
+                            src="{% static 'img/theme2.png' %}"
                             alt="logo"
                             width="100"
                             height="100"
@@ -870,7 +872,7 @@
                     <div class="item-img">
                       <a href="single-listing2.html"
                         ><img
-                          src="img/blog/widget1.jpg"
+                          src="{% static 'img/blog/widget1.jpg' %}"
                           alt="widget"
                           width="540"
                           height="360"
@@ -898,7 +900,7 @@
                       <div class="item-img">
                         <a href="single-listing2.html"
                           ><img
-                            src="img/blog/widget2.jpg"
+                            src="{% static 'img/blog/widget2.jpg' %}"
                             alt="widget"
                             width="120"
                             height="102"
@@ -920,7 +922,7 @@
                       <div class="item-img">
                         <a href="single-listing2.html"
                           ><img
-                            src="img/blog/widget3.jpg"
+                            src="{% static 'img/blog/widget3.jpg' %}"
                             alt="widget"
                             width="120"
                             height="102"
@@ -942,7 +944,7 @@
                       <div class="item-img">
                         <a href="single-listing2.html"
                           ><img
-                            src="img/blog/widget4.jpg"
+                            src="{% static 'img/blog/widget4.jpg' %}"
                             alt="widget"
                             width="120"
                             height="102"
@@ -1033,7 +1035,7 @@
                   </div>
                   <div class="widget widget-post">
                     <div class="item-img">
-                      <img src="img/blog/widget5.jpg" alt="widget" />
+                      <img src="{% static 'img/blog/widget5.jpg' %}" alt="widget" />
                       <div class="circle-shape">
                         <span class="item-shape"></span>
                       </div>
@@ -1082,7 +1084,7 @@
             <div class="col-xl-4 col-lg-6 col-md-6">
               <div class="property-box2 wow animated fadeInUp" data-wow-delay=".3s">
                   <div class="item-img">
-                      <a href="single-listing1.html"><img src="img/blog/blog4.jpg" alt="blog" width="510" height="340"></a>
+                      <a href="single-listing1.html"><img src="{% static 'img/blog/blog4.jpg' %}" alt="blog" width="510" height="340"></a>
                       <div class="item-category-box1">
                           <div class="item-category">For Sell</div>
                       </div>
@@ -1125,7 +1127,7 @@
             <div class="col-xl-4 col-lg-6 col-md-6">
                 <div class="property-box2 wow animated fadeInUp" data-wow-delay=".2s">
                     <div class="item-img">
-                        <a href="single-listing1.html"><img src="img/blog/blog5.jpg" alt="blog" width="510" height="340"></a>
+                        <a href="single-listing1.html"><img src="{% static 'img/blog/blog5.jpg' %}" alt="blog" width="510" height="340"></a>
                         <div class="item-category-box1">
                             <div class="item-category">For Rent</div>
                         </div>
@@ -1168,7 +1170,7 @@
             <div class="col-xl-4 col-lg-6 col-md-6">
                 <div class="property-box2 wow animated fadeInUp" data-wow-delay=".1s">
                     <div class="item-img">
-                        <a href="single-listing1.html"><img src="img/blog/blog6.jpg" alt="blog" width="510" height="340"></a>
+                        <a href="single-listing1.html"><img src="{% static 'img/blog/blog6.jpg' %}" alt="blog" width="510" height="340"></a>
                         <div class="item-category-box1">
                             <div class="item-category">For Sell</div>
                         </div>
@@ -1218,7 +1220,7 @@
       <section class="newsletter-wrap1">
         <div class="shape-img1">
           <img
-            src="img/figure/shape13.png"
+            src="{% static 'img/figure/shape13.png' %}"
             alt="figure"
             width="356"
             height="130"
