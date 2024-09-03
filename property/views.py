@@ -1,9 +1,8 @@
 from django.shortcuts import render
 from .models import Property
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 from django.shortcuts import get_object_or_404
-from hitcount.views import HitCountDetailView
-
+from django.urls import reverse_lazy
 
 # Create your views here.
 
@@ -13,6 +12,11 @@ class PropertyList(ListView):
     template_name = 'property_list.html'
     context_object_name = 'properties'
 
+class createProperty(CreateView):
+    model = Property
+    fields = '__all__'   
+    template_name = 'create_property.html'
+    success_url = reverse_lazy('property:property_list')  # Redirect to property list page after successful creation
 
 
 

@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block body %}
+<main class="site-main content-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-sm-12 col-12">
+                <div class="page-content-block">
+                    <div class="main-content">
+                        <div class="clearfix">
+                            <div id="post-95" class="post-95 page type-page status-publish">
+                                <div class="rtcl">
+                                    <div class="row" id="rtcl-user-login-wrapper">
+                                        <div class="col-md-12 rtcl-login-form-wrap">
+                                            <h2>Post An Ad</h2>
+
+                                            <form method="post" enctype="multipart/form-data">
+                                                {% csrf_token %}
+                                                <div class="form-group">
+                                                    <label for="{{ form.location.id_for_label }}">Location</label>
+                                                    {{ form.location }}
+                                                </div>
+                                                {{ form.as_p }}
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                            </form>
+
+                                            <!-- Map container -->
+                                            <div id="map-container" style="height: 400px; width: 100%;"></div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="page-pagination"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 widget-break-lg sidebar-widget">
+                <!-- Sidebar widgets here (search, categories, latest listings, etc.) -->
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Include Google Maps JavaScript API -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDR5RBpBMYmY56y4W4GwEwf3De-sKAaGaM"></script>
+<script>
+    function initMap() {
+        // Center and zoom level from your data
+        var center = {lat: 30.0444, lng: 31.2357};  // Cairo coordinates
+        var zoom = 12;  // Zoom level
+
+        // Initialize the map
+        var map = new google.maps.Map(document.getElementById('map-container'), {
+            center: center,
+            zoom: zoom,
+            mapTypeId: 'satellite'  // Map type as per your data
+        });
+
+        // Marker to show the initial location
+        var marker = new google.maps.Marker({
+            position: center,
+            map: map
+        });
+
+        // Update location when clicking on the map
+        google.maps.event.addListener(map, 'click', function(event) {
+            marker.setPosition(event.latLng);
+            document.getElementById('id_location').value = event.latLng.lat() + ',' + event.latLng.lng();
+        });
+    }
+
+    google.maps.event.addDomListener(window, 'load', initMap);
+</script>
+
+{% endblock %}
