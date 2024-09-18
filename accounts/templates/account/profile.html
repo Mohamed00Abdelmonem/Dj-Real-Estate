@@ -17,7 +17,7 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                         <li class="breadcrumb-item"><a href="agent-lists1.html">All Agent</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">{{profile.username}}</li>
+                        <li class="breadcrumb-item active" aria-current="page">{{profile.profile.name}}</li>
                     </ol>
                 </nav>
             </div>
@@ -41,7 +41,7 @@
                             </div>
                             <div class="item-content">
                                 <div class="item-title">
-                                    <h3><a href="agent-lists1.html">Helene Powers</a></h3>
+                                    <h3><a href="agent-lists1.html">{{profile.profile.name}}</a></h3>
                                     <div class="item-details">
                                         <h4 class="item-subtitle">RadiusTheme Agency</h4>
                                         <ul class="item-rating">
@@ -54,13 +54,11 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <p>Although brokers and agents do similar workbrokers are
-                                    licensed to manage their owner real estate businesses
-                                    brokers and agents do similar.
+                                <p>{{profile.profile.about}}.
                                 </p>
                                 <div class="item-contact-2">
-                                    <div class="item-phn-no"><i class="fas fa-phone-alt"></i>Call: <span>+123 699 7700</span></div>
-                                    <div class="item-icon"><i class="far fa-envelope"></i>E-mail : <span>andren@gmail.com</span></div>
+                                    <div class="item-phn-no"><i class="fas fa-phone-alt"></i>Call: <span>+{{profile.profile.phone_number}}</span></div>
+                                    <div class="item-icon"><i class="far fa-envelope"></i>E-mail : <span>{{profile.profile.email}}</span></div>
                                     <div class="item-icon"><i class="far fa-clock"></i>Time : <span>8:00AM - 16:00PM</span></div>
                                     <div class="item-icon icon-style-2"><i class="fas fa-share-alt"></i>Share : 
                                         <div class="rt-social-item">
@@ -68,7 +66,7 @@
                                                 <li><a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
                                                 <li><a href="https://twitter.com/" target="_blank"><i class="fab fa-twitter"></i></a></li>
                                                 <li><a href="https://vimeo.com/" target="_blank"><i class="fab fa-vimeo-v"></i></a></li>
-                                                <li><a href="https://web.whatsapp.com/" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
+                                                <li><a href="https://api.whatsapp.com/send?text={{ request.build_absolute_uri }}" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -114,12 +112,13 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-xl-12">
+                                        {% for property in propertys %}
+                                             <div class="col-xl-12">
                                                 <div class="property-box2 property-box4 wow animated fadeInUp" data-wow-delay=".6s">
                                                     <div class="item-img">
-                                                        <a href="single-listing1.html"><img src="{% static 'img/blog/blog13.jpg' %}" alt="blog" width="250" height="200"></a>
+                                                        <a href="single-listing1.html"><img src="{{property.image.url}}" alt="blog" width="250" height="200"></a>
                                                         <div class="item-category-box1">
-                                                            <div class="item-category">For Rent</div>
+                                                            <div class="item-category">For {{property.status}}</div>
                                                         </div>
                                                     </div>
                                                     <div class="item-content item-content-property">
@@ -141,7 +140,7 @@
                                                             </ul>
                                                         </div>
                                                         <div class="verified-area">
-                                                            <h3 class="item-title"><a href="single-listing1.html">The Luxarious Fitted Sells</a></h3>
+                                                            <h3 class="item-title"><a href="single-listing1.html">{{property.title}}</a></h3>
                                                         </div>
                                                         <div class="location-area"><i class="flaticon-maps-and-flags"></i>Downey, California</div>
                                                         <div class="item-categoery3">
@@ -151,133 +150,13 @@
                                                                 <li><i class="flaticon-two-overlapping-square"></i>931 Sqft</li>
                                                             </ul>
                                                         </div>
-                                                        <div class="item-price">$40,000<i>/</i><span>yr</span></div>
+                                                        <div class="item-price">${{property.price|floatformat:2}}</div></i><span> .. </span></div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-xl-12">
-                                                <div class="property-box2 property-box4 wow animated fadeInUp" data-wow-delay=".6s">
-                                                    <div class="item-img">
-                                                        <a href="single-listing1.html"><img src="{% static 'img/blog/blog13.jpg' %}" alt="blog" width="250" height="200"></a>
-                                                        <div class="item-category-box1">
-                                                            <div class="item-category">For Sell</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="item-content item-content-property">
-                                                        <div class="item-category10"><a href="single-listing1.html">Office</a></div>
-                                                        <div class="react-icon react-icon-2">
-                                                            <ul>
-                                                                <li>
-                                                                    <a href="favourite.html" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                                        title="Favourites">
-                                                                        <i class="flaticon-heart"></i>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="compare.html" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                                        title="Compare">
-                                                                        <i class="flaticon-left-and-right-arrows"></i>
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="verified-area">
-                                                            <h3 class="item-title"><a href="single-listing1.html">The Luxarious Fitted Sells </a></h3>
-                                                        </div>
-                                                        <div class="location-area"><i class="flaticon-maps-and-flags"></i>Downey, California</div>
-                                                        <div class="item-categoery3">
-                                                            <ul>
-                                                                <li><i class="flaticon-bed"></i>Beds: 03</li>
-                                                                <li><i class="flaticon-shower"></i>Baths: 02</li>
-                                                                <li><i class="flaticon-two-overlapping-square"></i>931 Sqft</li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="item-price">$35,000<i>/</i><span>mo</span></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-12">
-                                                <div class="property-box2 property-box4 wow animated fadeInUp" data-wow-delay=".6s">
-                                                    <div class="item-img">
-                                                        <a href="single-listing1.html"><img src="{% static 'img/blog/blog14.jpg' %}" alt="blog" width="250" height="200"></a>
-                                                        <div class="item-category-box1">
-                                                            <div class="item-category">For Sell</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="item-content item-content-property">
-                                                        <div class="item-category10"><a href="single-listing1.html">Villa</a></div>
-                                                        <div class="react-icon react-icon-2">
-                                                            <ul>
-                                                                <li>
-                                                                    <a href="favourite.html" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                                        title="Favourites">
-                                                                        <i class="flaticon-heart"></i>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="compare.html" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                                        title="Compare">
-                                                                        <i class="flaticon-left-and-right-arrows"></i>
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="verified-area">
-                                                            <h3 class="item-title"><a href="single-listing1.html">Diamond Manco Apartment</a></h3>
-                                                        </div>
-                                                        <div class="location-area"><i class="flaticon-maps-and-flags"></i>Downey, California</div>
-                                                        <div class="item-categoery3">
-                                                            <ul>
-                                                                <li><i class="flaticon-bed"></i>Beds: 03</li>
-                                                                <li><i class="flaticon-shower"></i>Baths: 02</li>
-                                                                <li><i class="flaticon-two-overlapping-square"></i>931 Sqft</li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="item-price">$25,000<i>/</i><span>mo</span></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-12">
-                                                <div class="property-box2 property-box4 wow animated fadeInUp" data-wow-delay=".6s">
-                                                    <div class="item-img">
-                                                        <a href="single-listing1.html"><img src="{% static 'img/blog/blog13.jpg' %}" alt="blog" width="250" height="200"></a>
-                                                        <div class="item-category-box1">
-                                                            <div class="item-category">For Rent</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="item-content item-content-property">
-                                                        <div class="item-category10"><a href="single-listing1.html">Restaurant</a></div>
-                                                        <div class="react-icon react-icon-2">
-                                                            <ul>
-                                                                <li>
-                                                                    <a href="favourite.html" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                                        title="Favourites">
-                                                                        <i class="flaticon-heart"></i>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="compare.html" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                                        title="Compare">
-                                                                        <i class="flaticon-left-and-right-arrows"></i>
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="verified-area">
-                                                            <h3 class="item-title"><a href="single-listing1.html">Affordable Green Villa </a></h3>
-                                                        </div>
-                                                        <div class="location-area"><i class="flaticon-maps-and-flags"></i>Downey, California</div>
-                                                        <div class="item-categoery3">
-                                                            <ul>
-                                                                <li><i class="flaticon-bed"></i>Beds: 03</li>
-                                                                <li><i class="flaticon-shower"></i>Baths: 02</li>
-                                                                <li><i class="flaticon-two-overlapping-square"></i>931 Sqft</li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="item-price">$35,000<i>/</i><span>mo</span></div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            
+                                        {% endfor %}
+                                            
                                         </div>
                                         <div class="pagination-style-1">
                                             <ul class="pagination">

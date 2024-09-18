@@ -30,7 +30,7 @@ class Property(models.Model):
     city = models.CharField(max_length=255)
     location = PlainLocationField(based_fields=['city'], zoom=9, default='30.0444,31.2357')
     video = models.FileField(upload_to='prop', null=True, blank=True)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, related_name='property_owner', on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(default=timezone.now)
     view_count = models.PositiveIntegerField(default=0)  # Added field
