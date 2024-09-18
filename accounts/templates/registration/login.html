@@ -37,16 +37,16 @@
 
 
                                     <div class="form-button">
-                                            
-                                        {% bootstrap_button class='btn btn-success' button_type="submit" content="OK" %}
-                                        {% bootstrap_button button_type="reset" content="Cancel" %}
+                                        {% bootstrap_button class='btn' button_type="submit" content="OK" style="background-color: var(--rt-primary-color); border-color: var(--rt-primary-color);" %}
+                                        {% bootstrap_button button_type="reset" content="Cancel" style="background-color: var(--rt-primary-color); border-color: var(--rt-primary-color);" %}
                                         <br>
-                                        <p>Forgot your password?<a href="{% url 'password_reset' %}">reset here</a></p>
+                                        <p>Forgot your password? <a href="{% url 'password_reset' %}" style="color: var(--rt-primary-color);">reset here</a></p>
                                     </div>
+
                             </form>
                         </div>
                         <div class="user-form-remind">
-                            <p>Don't have any account?<a href="/accounts/signup">signup </a></p>
+                            <p >Don't have any account?<a href="/accounts/signup" style="color: var(--rt-primary-color);">signup </a></p>
                         </div>
                     </div>
                 </div>
