@@ -1,10 +1,11 @@
 {% extends "base.html" %}
+{% load django_bootstrap5 %}
 
 {% block body %}
 <main class="site-main content-area">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-sm-12 col-12">
+            <div class="col-lg-12 col-sm-12 col-12">
                 <div class="page-content-block">
                     <div class="main-content">
                         <div class="clearfix">
@@ -12,21 +13,30 @@
                                 <div class="rtcl">
                                     <div class="row" id="rtcl-user-login-wrapper">
                                         <div class="col-md-12 rtcl-login-form-wrap">
-                                            <h2>Post An Ad</h2>
+                                            <h2>Add Property</h2>
 
                                             <form method="post" enctype="multipart/form-data">
                                                 {% csrf_token %}
+                                                {% bootstrap_form form %}
+
+                                                <!-- Search for city -->
                                                 <div class="form-group">
-                                                    <label for="{{ form.location.id_for_label }}">Location</label>
-                                                    {{ form.location }}
+                                                    <label for="search-city">Search for a city:</label>
+                                                    <input type="text" id="search-city" class="form-control" placeholder="Enter city name">
+                                                    <button type="button" class="btn btn-primary mt-2" id="search-city-btn">Search</button>
                                                 </div>
-                                                {{ form.as_p }}
-                                                <button type="submit" class="btn btn-primary">Submit</button>
+
+                                                <!-- Hidden field to store the selected location -->
+                                                <input type="hidden" id="id_location" name="location">
+
+                                                <div class="form-button">
+                                                    {% bootstrap_button class='btn btn-success' button_type="submit" content="OK" %}
+                                                    {% bootstrap_button button_type="reset" content="Cancel" %}
+                                                </div>
+
+                                                <!-- Map container -->
+                                                <div id="map-container" style="height: 400px; width: 100%;"></div>
                                             </form>
-
-                                            <!-- Map container -->
-                                            <div id="map-container" style="height: 400px; width: 100%;"></div>
-
                                         </div>
                                     </div>
                                 </div>
@@ -37,17 +47,17 @@
                 </div>
             </div>
             <div class="col-lg-4 widget-break-lg sidebar-widget">
-                <!-- Sidebar widgets here (search, categories, latest listings, etc.) -->
+                 Sidebar widgets here (search, categories, latest listings, etc.)
             </div>
         </div>
     </div>
 </main>
 
 <!-- Include Google Maps JavaScript API -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDR5RBpBMYmY56y4W4GwEwf3De-sKAaGaM"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDR5RBpBMYmY56y4W4GwEwf3De-sKAaGaM&libraries=places"></script>
 <script>
     function initMap() {
-        // Center and zoom level from your data
+        // Default center and zoom level (Cairo)
         var center = {lat: 30.0444, lng: 31.2357};  // Cairo coordinates
         var zoom = 12;  // Zoom level
 
@@ -55,19 +65,51 @@
         var map = new google.maps.Map(document.getElementById('map-container'), {
             center: center,
             zoom: zoom,
-            mapTypeId: 'satellite'  // Map type as per your data
+            mapTypeId: 'roadmap'
         });
 
-        // Marker to show the initial location
+        // Marker to show the selected location
         var marker = new google.maps.Marker({
             position: center,
-            map: map
+            map: map,
+            draggable: true  // Allow the marker to be draggable
         });
 
-        // Update location when clicking on the map
+        // Update the hidden field and marker when clicking on the map
         google.maps.event.addListener(map, 'click', function(event) {
             marker.setPosition(event.latLng);
             document.getElementById('id_location').value = event.latLng.lat() + ',' + event.latLng.lng();
+        });
+
+        // Update hidden field when marker is dragged
+        google.maps.event.addListener(marker, 'dragend', function() {
+            var position = marker.getPosition();
+            document.getElementById('id_location').value = position.lat() + ',' + position.lng();
+        });
+
+        // Add search functionality
+        var input = document.getElementById('search-city');
+        var searchBox = new google.maps.places.SearchBox(input);
+
+        // Listen for the event when a place is selected from the search box
+        document.getElementById('search-city-btn').addEventListener('click', function() {
+            var places = searchBox.getPlaces();
+            if (places.length == 0) {
+                alert("No places found");
+                return;
+            }
+
+            // Get the first place
+            var place = places[0];
+
+            // Center the map and place the marker at the searched location
+            map.setCenter(place.geometry.location);
+            map.setZoom(14);  // Adjust the zoom level
+
+            marker.setPosition(place.geometry.location);
+
+            // Update the hidden field
+            document.getElementById('id_location').value = place.geometry.location.lat() + ',' + place.geometry.location.lng();
         });
     }
 
