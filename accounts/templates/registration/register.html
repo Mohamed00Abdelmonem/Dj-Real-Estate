@@ -1,58 +1,137 @@
-{% extends "base.html" %} 
-{% load static%}
+{% extends "base.html" %}
+{% load static %}
 {% load django_bootstrap5 %}
 {% block body %}
 
+<!--=====================================-->
+<!--=   Breadcrumb     Start            =-->
+<!--=====================================-->
 
+<div class="breadcrumb-wrap">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">My Account</li>
+            </ol>
+        </nav>
+    </div>
+</div>
 
+<!--=====================================-->
+<!--=   Account     Start               =-->
+<!--=====================================-->
 
-    <!--=====================================-->
-    <!--=   Breadcrumb     Start            =-->
-    <!--=====================================-->
+<main class="site-main content-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 col-12">
+                <div class="page-content-block">
+                    <div class="col-md-12 rtcl-login-form-wrap">
+                        <h2>Signup</h2>
+                        <form class="user-form" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            
+                            <!-- Username field -->
+                            <div class="mb-3">
+                                <label for="id_username" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="id_username" name="username" placeholder="Enter username" value="{{ form.username.value|default_if_none:'' }}">
+                                {% if form.username.errors %}
+                                    <div class="text-danger">{{ form.username.errors }}</div>
+                                {% endif %}
+                            </div>
 
-        <div class="breadcrumb-wrap">
-            <div class="container">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">My Account</li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
-    <!--=====================================-->
-    <!--=   Account     Start               =-->
-    <!--=====================================-->
+                            <!-- Email field -->
+                            <div class="mb-3">
+                                <label for="id_email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="id_email" name="email" placeholder="Enter email" value="{{ form.email.value|default_if_none:'' }}">
+                                {% if form.email.errors %}
+                                    <div class="text-danger">{{ form.email.errors }}</div>
+                                {% endif %}
+                            </div>
 
-    <main class="site-main content-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 col-sm-12 col-12">
-                    <div class="page-content-block">
-                        <div class="col-md-12 rtcl-login-form-wrap">
-                            <h2>Signup</h2>
-                            <form class="user-form" method='post'>
-                                    {% csrf_token %}
-                                    {% bootstrap_form form %}
+                            <!-- Password1 field -->
+                            <div class="mb-3">
+                                <label for="id_password1" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="id_password1" name="password1" placeholder="Enter password">
+                                {% if form.password1.errors %}
+                                    <div class="text-danger">{{ form.password1.errors }}</div>
+                                {% endif %}
+                            </div>
 
+                            <!-- Password2 field -->
+                            <div class="mb-3">
+                                <label for="id_password2" class="form-label">Confirm Password</label>
+                                <input type="password" class="form-control" id="id_password2" name="password2" placeholder="Confirm password">
+                                {% if form.password2.errors %}
+                                    <div class="text-danger">{{ form.password2.errors }}</div>
+                                {% endif %}
+                            </div>
 
-                                    <div class="form-button">
-                                        {% bootstrap_button class='btn' button_type="submit" content="OK" style="background-color: var(--rt-primary-color); border-color: var(--rt-primary-color);" %}
-                                        {% bootstrap_button button_type="reset" content="Cancel" style="background-color: var(--rt-primary-color); border-color: var(--rt-primary-color);" %}
-                                        <br>
-                                        <p>Forgot your password? <a href="{% url 'password_reset' %}" style="color: var(--rt-primary-color);">reset here</a></p>
-                                    </div>
+                            <!-- Phone field -->
+                            <div class="mb-3">
+                                <label for="id_phone" class="form-label">Phone</label>
+                                <input type="text" class="form-control" id="id_phone" name="phone" placeholder="Enter phone number" value="{{ form.phone.value|default_if_none:'' }}">
+                                {% if form.phone.errors %}
+                                    <div class="text-danger">{{ form.phone.errors }}</div>
+                                {% endif %}
+                            </div>
 
-                            </form>
-                        </div>
-                        <div class="user-form-remind">
-                            <p >Don't have any account?<a href="/accounts/signup" style="color: var(--rt-primary-color);">signup </a></p>
-                        </div>
+                            <!-- Image field -->
+                            <div class="mb-3">
+                                <label for="id_image" class="form-label">Profile Image</label>
+                                <input type="file" class="form-control" id="id_image" name="image">
+                                {% if form.image.errors %}
+                                    <div class="text-danger">{{ form.image.errors }}</div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Name field -->
+                            <div class="mb-3">
+                                <label for="id_name" class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="id_name" name="name" placeholder="Enter full name" value="{{ form.name.value|default_if_none:'' }}">
+                                {% if form.name.errors %}
+                                    <div class="text-danger">{{ form.name.errors }}</div>
+                                {% endif %}
+                            </div>
+
+                            <!-- About field -->
+                            <div class="mb-3">
+                                <label for="id_about" class="form-label">About</label>
+                                <textarea class="form-control" id="id_about" name="about" rows="4" placeholder="Tell us about yourself">{{ form.about.value|default_if_none:'' }}</textarea>
+                                {% if form.about.errors %}
+                                    <div class="text-danger">{{ form.about.errors }}</div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Address field -->
+                            <div class="mb-3">
+                                <label for="id_address" class="form-label">Address</label>
+                                <input type="text" class="form-control" id="id_address" name="address" placeholder="Enter your address" value="{{ form.address.value|default_if_none:'' }}">
+                                {% if form.address.errors %}
+                                    <div class="text-danger">{{ form.address.errors }}</div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Submit and Reset buttons -->
+                            <div class="form-button">
+                                {% bootstrap_button class='btn' button_type="submit" content="OK" style="background-color: var(--rt-primary-color); border-color: var(--rt-primary-color);" %}
+                                {% bootstrap_button button_type="reset" content="Cancel" style="background-color: var(--rt-primary-color); border-color: var(--rt-primary-color);" %}
+                                <br>
+                                <p>Forgot your password? <a href="{% url 'password_reset' %}" style="color: var(--rt-primary-color);">reset here</a></p>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="user-form-remind mt-3">
+                        <p>Don't have an account? 
+                            <a href="/accounts/signup" style="color: var(--rt-primary-color);">Sign up</a>
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
-       
+    </div>
+</main>
 
 {% endblock body %}
