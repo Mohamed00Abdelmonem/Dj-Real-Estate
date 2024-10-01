@@ -139,8 +139,14 @@
                                         </a>
                                     </li>
                                     <li class="action-item-style my-account">
-                                        <a href="/accounts/login" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                            title="Sign In">
+                                        {% if request.user.is_authenticated %}
+                                            <a href="/accounts/profile/" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Profile">
+
+                                        {% else %}
+                                            <a href="/accounts/login" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Sign In">
+
+                                        {% endif %}
+                                           
                                             <i class="flaticon-user-1"></i>
                                         </a>
                                     </li>

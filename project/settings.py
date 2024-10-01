@@ -172,3 +172,9 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
 # Optional (if you need a default sender)
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
+# Redirect to home URL after login (Default redirects to /accounts/profile/)
+# LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+

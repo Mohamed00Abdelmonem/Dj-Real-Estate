@@ -32,6 +32,7 @@ class SignupForm(UserCreationForm):
             image = self.cleaned_data['image'],
             name = self.cleaned_data['name'],
             about = self.cleaned_data['about'],
+            address = self.cleaned_data['address'],
        
         
             

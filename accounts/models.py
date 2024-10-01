@@ -9,7 +9,6 @@ class Profile(models.Model):
     name = models.CharField(max_length=50, blank=True, null=True)
     about = models.CharField(max_length=1000, blank=True, null=True)
     phone_number = models.CharField(max_length=15, blank=True, null=True)
-    email = models.EmailField(blank=True, null=True)
     address = models.CharField(max_length=100, blank=True, null=True)
     image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
     code = models.CharField(max_length=8, default=generate_code)

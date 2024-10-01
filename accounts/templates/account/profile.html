@@ -42,7 +42,7 @@
                                     {% endif %}
                                 </a>
                                 <div class="category-box">
-                                    <div class="item-category"><a href="agent-lists1.html">05 Listings</a></div>
+                                    <div class="item-category"><a href="agent-lists1.html">{{profile.profile.user.id}} Listings</a></div>
                                 </div>
                             </div>
                             <div class="item-content">
@@ -64,7 +64,7 @@
                                 </p>
                                 <div class="item-contact-2">
                                     <div class="item-phn-no"><i class="fas fa-phone-alt"></i>Call: <span>+{{profile.profile.phone_number}}</span></div>
-                                    <div class="item-icon"><i class="far fa-envelope"></i>E-mail : <span>{{profile.profile.email}}</span></div>
+                                    <div class="item-icon"><i class="far fa-envelope"></i>E-mail : <span>{{profile.profile.user.email}}</span></div>
                                     <div class="item-icon"><i class="far fa-clock"></i>Time : <span>8:00AM - 16:00PM</span></div>
                                     <div class="item-icon icon-style-2"><i class="fas fa-share-alt"></i>Share : 
                                         <div class="rt-social-item">

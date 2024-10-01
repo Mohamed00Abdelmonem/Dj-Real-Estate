@@ -120,13 +120,7 @@
                     <div class="col-xl-4 col-lg-4 d-flex justify-content-end">
                         <div class="header-action-layout1">
                             <ul class="action-list">
-                                <li class="action-item-style left-right-btn">
-                                    <a href="compare.html" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                        title="Compare">
-                                        <i class="flaticon-left-and-right-arrows icon-round"></i>
-                                        <div class="item-count">0</div>
-                                    </a>
-                                </li>
+                             
                                 <li class="action-item-style wish-btn">
                                     <a href="favourite.html" data-bs-toggle="tooltip" data-bs-placement="bottom"
                                         title="Favourites">
@@ -135,11 +129,31 @@
                                     </a>
                                 </li>
                                 <li class="action-item-style my-account">
-                                    <a href="/accounts/login" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                        title="Sign In">
+                                    {% if request.user.is_authenticated %}
+                                        <a href="/accounts/profile/" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Profile">
+
+                                    {% else %}
+                                        <a href="/accounts/login" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Sign In">
+
+                                    {% endif %}
+                                       
                                         <i class="flaticon-user-1 icon-round"></i>
                                     </a>
                                 </li>
+
+                                <li class="action-item-style my-account">
+                                    {% if request.user.is_authenticated %}
+                                        <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                                            {% csrf_token %}
+                                            <button type="submit" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Logout" style="background: none; border: none; padding: 0; color: inherit;">
+                                                <i class="fas fa-sign-out-alt icon-round"></i> 
+                                            </button>
+                                        </form>
+                                       
+                                    {% endif %}
+                                </li>
+                                
+                               
                                 <li class="listing-button">
                                     <a href="/" class="listing-btn">
                                         <span>
