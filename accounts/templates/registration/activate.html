@@ -1,0 +1,59 @@
+{% extends "base.html" %} 
+{% load static%}
+{% load django_bootstrap5 %}
+{% block body %}
+
+
+
+
+    <!--=====================================-->
+    <!--=   Breadcrumb     Start            =-->
+    <!--=====================================-->
+
+        <div class="breadcrumb-wrap">
+            <div class="container">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">My Account</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    <!--=====================================-->
+    <!--=   Account     Start               =-->
+    <!--=====================================-->
+
+    <main class="site-main content-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-sm-12 col-12">
+                    <div class="page-content-block">
+                        <div class="col-md-12 rtcl-login-form-wrap">
+                            <h2>Activation</h2>
+                            <form class="user-form" method='post'>
+                                {% csrf_token %}
+                                {% bootstrap_form form %}
+    
+                                    <input type="hidden" name="next" value="{{ next }}">
+    
+                                   <div class="form-button">
+                                    {% bootstrap_button class='btn' button_type="submit" content="Active" style="background-color: var(--rt-primary-color); border-color: var(--rt-primary-color);" %}
+                                </div>
+                                </form>
+                            </div>
+                            <div class="user-form-remind">
+                                {% comment %} <p>Go Back To<a href="login.html">login here</a></p> {% endcomment %}
+                            </div>
+                        </div>
+                        <div class="user-form-remind">
+                            <p >Don't have any account?<a href="/accounts/signup" style="color: var(--rt-primary-color);">signup </a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+       
+
+{% endblock body %}

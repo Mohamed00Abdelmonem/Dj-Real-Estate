@@ -33,7 +33,13 @@
                         <div class="team-box1 team-box5">
                             <div class="item-img">
                                 <a href="agent-lists1.html">
-                                    <img src="{{profile.profile.image.url}}" alt="team" width="330" height="390">
+                                    {% if profile.profile.image %}
+                                        <img src="{{profile.profile.image.url}}" alt="team" width="330" height="390">
+
+                                    {% else %}
+                                        <img src={% static 'img/team/team-logo2.png' %} alt="team" width="330" height="390">
+
+                                    {% endif %}
                                 </a>
                                 <div class="category-box">
                                     <div class="item-category"><a href="agent-lists1.html">05 Listings</a></div>

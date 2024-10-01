@@ -5,5 +5,7 @@ app_name = 'accounts'
 
 urlpatterns = [
     path('profile/', views.Profile, name='profile_user'),
+    path('signup/', views.signup, name='signup'),
+    path('<str:username>/activate', views.activate),
 
 ]
