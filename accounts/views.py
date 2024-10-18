@@ -122,3 +122,74 @@ def Profile(request):
                   {'profile': profile,
                    'propertys': propertys, 
                    'request': request}) # i'm returned request here for use sent my current link in whatapp 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+from django.http import JsonResponse
+from django.shortcuts import render
+from langchain_community.llms import Ollama
+from django.apps import apps
+from django.db.models import Count
+from django.contrib.auth.models import User
+
+def generate_ollama3_text(request):
+    if request.method == 'POST':
+        input_text = request.POST.get('input_text', '')  # Input question from user
+        
+        # Get all models dynamically
+        models = apps.get_models()
+        available_tables = {model._meta.model_name: model for model in models}
+        extracted_data = {}
+
+        # Extract data based on question
+        for table_name, model in available_tables.items():
+            if table_name in input_text.lower():
+                # Dynamically count records for each model
+                try:
+                    count = model.objects.count()
+                    extracted_data[table_name] = f"Total {table_name} records: {count}"
+                    
+                    # Optionally add titles or other fields if available
+                    if hasattr(model, 'title'):  # If model has 'title' field
+                        titles = ', '.join([getattr(obj, 'title') for obj in model.objects.all()])
+                        extracted_data[f'{table_name}_titles'] = f"{table_name.capitalize()} Titles: {titles}"
+                except Exception as e:
+                    extracted_data[table_name] = f"Error fetching data from {table_name}: {str(e)}"
+
+        # Check for specific queries on the User model
+        if 'user' in input_text.lower():
+            total_users = User.objects.count()  # Count users
+            extracted_data['users'] = f"Total users: {total_users}"
+        
+        # Create dynamic query text
+        extracted_data_str = '\n'.join([f"- {key}: {value}" for key, value in extracted_data.items()])
+        
+        prompt = f"""
+        The user has asked: "{input_text}"
+        Here is the data available:
+
+        {extracted_data_str if extracted_data else "No specific data found in the database."}
+
+        Please answer the user's question as accurately as possible, even if it is not a direct match to the data.
+        """
+        
+        # Use the Ollama model to analyze the question
+        llm = Ollama(model="llama3.2")
+        try:
+            generated_text = llm.invoke(prompt)  # Generate the response
+            return JsonResponse({'generated_text': generated_text})  # Return as JSON
+        except Exception as e:
+            return JsonResponse({'error': f"An error occurred while generating a response: {str(e)}"}, status=500)
+
+    return render(request, 'account/chatbot.html')
