@@ -1,9 +1,13 @@
 from django.shortcuts import render
 from .models import Company, Phone, SocialMediaLinks
+from property import models
+from django.core.cache import cache
 # Create your views here.
 
 def home(request):
-    return render(request, 'settings/index.html')
+    propertys = models.Property.objects.order_by("-created_at")[:6]
+    # cache.set('propertys', propertys, 60 * 15)  # Cache for 15 minutes
+    return render(request, 'settings/index.html', {'propertys':propertys})
 
 def about(request):
     data = Company.objects.last()
