@@ -1,160 +1,157 @@
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My GPT</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <style>
-        body, h1, h2, h3, p, ul, ol, li, textarea, button {
-            margin: 0;
-            padding: 0;
-            border: 0;
-            font-family: 'Lugrasimo', cursive; /* Set Lugrasimo as font */
-        }
-        body {
-            font-size: 16px;
-            background-color: #f8f9fa; 
-        }
-        .generator-section {
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 20px;
-            color: #1d1919;
-            background-color: #dcd3c7; /* Change section background color */
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add box shadow */
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-            color: rgb(33, 29, 17);
-        }
-        h2 {
-            margin-top: 20px;
-            color: rgb(217, 171, 19);
-        }
-        .generated-text {
-            margin-top: 20px;
-            max-height: 200px; /* Set a maximum height */
-            overflow-y: auto; /* Add a scrollbar if the content exceeds the max height */
-            border: 1px solid #ccc; /* Optional: add a border to the output area */
-            padding: 10px; /* Optional: add padding inside the output area */
-            border-radius: 5px; /* Optional: round the corners */
-            background-color: #ffffff; /* Optional: background color for better readability */
-        }
-        .input-form {
-            margin-top: 20px;
-        }
-        textarea {
-            width: 100%;
-            resize: vertical;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            box-sizing: border-box; /* Ensure padding is included in width */
-        }
-        .btn-primary {
-            margin-left: 10px;
-            padding: 10px 20px;
-            background-color: #17a2b8; /* Change button background color */
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease; /* Add transition effect */
-        }
-        .btn-primary:hover {
-            background-color: #138496; /* Change button hover background color */
-        }
-        .error-message {
-            color: red;
-            margin-top: 10px;
-            text-align: center;
-        }
-        .loader {
-            display: none; /* Hide loader by default */
-            text-align: center; /* Center align the loader */
-            margin-top: 10px; /* Add some margin to the top */
-        }
-    </style>
-</head>
-<body>
-    <div class="generator-section">
-        <h1 class="mt-5">MY GPT</h1>
-        <div class="generated-text" id="result">
-            <h2>Result:</h2>
-            <div id="output"></div> <!-- Changed <pre> to <div> for better control -->
-        </div>
+{% extends "base.html" %}
+{% load static %}
 
-        <div class="input-form">
-            <form id="inputForm">
-                {% csrf_token %}
-                <div class="form-group">
-                    <textarea id="input_text" name="input_text" rows="4" placeholder="Enter your text here..." required></textarea>
-                </div>
-                <button type="submit" class="btn btn-warning btn-primary">Send</button>
-            </form>
-            <div id="error_message" class="error-message" style="display: none;"></div>
-            <div id="loader" class="loader">
-                <i class="fas fa-spinner fa-spin" style="font-size: 24px;"></i> <!-- Loader icon -->
-                <p>Loading...</p> <!-- Loader text -->
-            </div>
-        </div>
+{% block body %}
+<div class="generator-section">
+    <h1 class="mt-5">MY GPT</h1>
+    <div class="generated-text" id="result">
+        <h2>Result:</h2>
+        <div id="output"></div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const form = document.querySelector('form'); // Select the form element
-            const outputElement = document.querySelector('#output'); // Element to display generated text
-            const errorMessageElement = document.querySelector('#error_message'); // Element for error messages
-            const loaderElement = document.querySelector('#loader'); // Loader element
-        
-            form.onsubmit = function (event) {
-                event.preventDefault(); // Prevent the default form submission
-        
-                // Clear previous output and error messages
-                outputElement.innerHTML = '';
-                errorMessageElement.innerHTML = '';
-                errorMessageElement.style.display = 'none';
-                loaderElement.style.display = 'block'; // Show the loader
-        
-                // Prepare the request data
-                const formData = new FormData(form); // Get form data
-        
-                fetch('', {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'X-CSRFToken': '{{ csrf_token }}' // Include CSRF token for security
-                    }
-                })
-                .then(response => {
-                    loaderElement.style.display = 'none'; // Hide the loader
-                    if (!response.ok) {
-                        return response.json().then(err => {
-                            throw new Error(err.error || 'Something went wrong');
-                        });
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    // Display the generated text word by word
-                    const words = data.generated_text.split(' '); // Split the generated text into words
-                    words.forEach((word, index) => {
-                        setTimeout(() => {
-                            outputElement.innerHTML += word + ' '; // Append each word to the output element
-                        }, index * 300); // Adjust timing for each word
+    <div class="input-form">
+        <form id="inputForm">
+            {% csrf_token %}
+            <div class="form-group">
+                <textarea id="input_text" name="input_text" rows="4" placeholder="Enter your text here..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send</button>
+        </form>
+        <div id="error_message" class="error-message" style="display: none;"></div>
+        <div id="loader" class="loader">
+            <i class="fas fa-spinner fa-spin" style="font-size: 24px;"></i>
+            <p>Loading...</p>
+        </div>
+    </div>
+</div>
+
+<style>
+    body, h1, h2, p, ul, ol, li, textarea, button {
+        margin: 0;
+        padding: 0;
+        font-family: 'Lugrasimo', cursive;
+    }
+    body {
+        background-color: #f8f9fa;
+        font-size: 16px;
+    }
+    .generator-section {
+        max-width: 600px;
+        margin: 60px auto;
+        padding: 30px;
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        text-align: center;
+    }
+    h1 {
+        font-size: 2em;
+        color: #333333;
+        margin-bottom: 20px;
+    }
+    .generated-text {
+        margin: 20px 0;
+        padding: 15px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background-color: #f1f1f1;
+        max-height: 220px;
+        overflow-y: auto;
+    }
+    .input-form {
+        margin-top: 25px;
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
+    textarea {
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+        font-size: 1em;
+        transition: border-color 0.3s ease;
+    }
+    textarea:focus {
+        border-color: #17a2b8;
+        outline: none;
+        box-shadow: 0 0 8px rgba(23, 162, 184, 0.4);
+    }
+    .btn-primary {
+        display: inline-block;
+        padding: 12px 25px;
+        background: linear-gradient(135deg, #17a2b8, #138496);
+        color: #fff;
+        font-size: 1em;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.3s ease, transform 0.2s ease;
+        box-shadow: 0 4px 12px rgba(23, 162, 184, 0.2);
+    }
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #138496, #117a8b);
+        transform: scale(1.05);
+    }
+    .error-message {
+        color: red;
+        margin-top: 10px;
+    }
+    .loader {
+        display: none;
+        margin-top: 20px;
+        font-size: 1.2em;
+        color: #17a2b8;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('#inputForm');
+        const outputElement = document.querySelector('#output');
+        const errorMessageElement = document.querySelector('#error_message');
+        const loaderElement = document.querySelector('#loader');
+    
+        form.onsubmit = function (event) {
+            event.preventDefault();
+            outputElement.innerHTML = '';
+            errorMessageElement.innerHTML = '';
+            errorMessageElement.style.display = 'none';
+            loaderElement.style.display = 'block';
+    
+            const formData = new FormData(form);
+    
+            fetch('', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            })
+            .then(response => {
+                loaderElement.style.display = 'none';
+                if (!response.ok) {
+                    return response.json().then(err => {
+                        throw new Error(err.error || 'Something went wrong');
                     });
-                })
-                .catch(error => {
-                    loaderElement.style.display = 'none'; // Hide the loader
-                    errorMessageElement.innerHTML = "An error occurred: " + error.message; // Display error message
-                    errorMessageElement.style.display = 'block'; // Show error message
+                }
+                return response.json();
+            })
+            .then(data => {
+                const words = data.generated_text.split(' ');
+                words.forEach((word, index) => {
+                    setTimeout(() => {
+                        outputElement.innerHTML += word + ' ';
+                    }, index * 300);
                 });
-            };
-        });
-        
-    </script>
-</body>
-</html>
+            })
+            .catch(error => {
+                loaderElement.style.display = 'none';
+                errorMessageElement.innerHTML = "An error occurred: " + error.message;
+                errorMessageElement.style.display = 'block';
+            });
+        };
+    });
+</script>
+{% endblock %}
