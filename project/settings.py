@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'rest_framework',
+
 
     'location_field.apps.DefaultConfig',
     'django.contrib.humanize',
@@ -54,6 +56,11 @@ INSTALLED_APPS = [
     'property',
     
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 10
+}
 
 
 LOCATION_FIELD = {
