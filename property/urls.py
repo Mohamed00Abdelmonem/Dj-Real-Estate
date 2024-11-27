@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import PropertyList, PropertyDetail, createProperty
-from .api import PropertyApi
+from .api import PropertyApi, PropertyDetailApi
 app_name = 'property'
 
 urlpatterns = [
@@ -10,6 +10,7 @@ urlpatterns = [
 
 
     # API
-    path('api/properties/', PropertyApi.as_view())
+    path('api/properties/', PropertyApi.as_view()),
+    path('api/properties/<int:pk>', PropertyDetailApi.as_view()),
 
 ]

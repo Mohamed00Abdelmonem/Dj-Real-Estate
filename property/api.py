@@ -7,6 +7,10 @@ class PropertyApi(generics.ListAPIView):
     queryset = Property.objects.all()
 
 
+class PropertyDetailApi(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class =  SerializerProperty
+    queryset = Property.objects.all()
+
 
 
 
