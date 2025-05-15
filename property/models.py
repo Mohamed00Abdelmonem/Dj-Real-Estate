@@ -26,7 +26,7 @@ class Property(models.Model):
     parking = models.BooleanField(default=False)
     image = models.ImageField(upload_to='property')
     area = models.FloatField()
-    year_built = models.DateField()
+    year_built = models.DateField(null=True, blank=True)
     city = models.CharField(max_length=255)
     location = PlainLocationField(based_fields=['city'], zoom=9, default='30.0444,31.2357')
     video = models.FileField(upload_to='prop', null=True, blank=True)

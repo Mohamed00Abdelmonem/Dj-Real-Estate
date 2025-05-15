@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-dhfn74p*yyq0djgdi73&prs88^h903a3a$1s_z4u*-vh@!n+hf
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -61,6 +61,17 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 10
 }
+
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://rntij-197-35-101-73.a.free.pinggy.link',
+    # أضف أي domains تانية هنا
+]
+CSRF_TRUSTED_ORIGINS = [
+    'https://rntij-197-35-101-73.a.free.pinggy.link',
+    # Add other domains as needed
+]
+
 
 
 LOCATION_FIELD = {

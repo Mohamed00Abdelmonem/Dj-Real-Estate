@@ -12,7 +12,7 @@ class FloorPlansImagesTabularInline(admin.TabularInline):
     model = FloorPlansImages
 
 class PropertyInline(admin.ModelAdmin):
-    list_display = ('title', 'location', 'created_at')
+    list_display = ('title','price', 'location', 'created_at')
     list_filter = ('city', 'created_at')
     search_fields = ('title', 'description', 'city', 'location')
     inlines = [ImagesPropertyTabularInline, FloorPlansImagesTabularInline]

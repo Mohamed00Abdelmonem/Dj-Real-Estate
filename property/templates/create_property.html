@@ -1,119 +1,175 @@
 {% extends "base.html" %}
-{% load django_bootstrap5 %}
-
+{% load static %}
 {% block body %}
-<main class="site-main content-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 col-sm-12 col-12">
-                <div class="page-content-block">
-                    <div class="main-content">
-                        <div class="clearfix">
-                            <div id="post-95" class="post-95 page type-page status-publish">
-                                <div class="rtcl">
-                                    <div class="row" id="rtcl-user-login-wrapper">
-                                        <div class="col-md-12 rtcl-login-form-wrap">
-                                            <h2>Add Property</h2>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-                                            <form method="post" enctype="multipart/form-data">
-                                                {% csrf_token %}
-                                                {% bootstrap_form form %}
+<style>
+  body {
+    background-color: #f8f9fa;
+  }
+  #map_location {
+    display: none !important;
+  }
+  
+  .card {
+    margin-bottom: 20px;
+    border-radius: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .card-header {
+    background-color: #e3f2fd;
+    font-weight: bold;
+    font-size: 1.2rem;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+  }
+</style>
 
-                                                <!-- Search for city -->
-                                                <div class="form-group">
-                                                    <label for="search-city">Search for a city:</label>
-                                                    <input type="text" id="search-city" class="form-control" placeholder="Enter city name">
-                                                    <button type="button" class="btn btn-primary mt-2" id="search-city-btn">Search</button>
-                                                </div>
+<div class="container mt-5 mb-5">
+  <h2 class="mb-4 text-center text-primary">Create New Property</h2>
 
-                                                <!-- Hidden field to store the selected location -->
-                                                <input type="hidden" id="id_location" name="location">
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
 
-                                                <div class="form-button">
-                                                    {% bootstrap_button class='btn btn-success' button_type="submit" content="OK" %}
-                                                    {% bootstrap_button button_type="reset" content="Cancel" %}
-                                                </div>
+    <!-- Property Form -->
+    <div class="card">
+      <div class="card-header">Property Details</div>
+      <div class="card-body row g-3">
 
-                                                <!-- Map container -->
-                                                <div id="map-container" style="height: 400px; width: 100%;"></div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="page-pagination"></div>
-                    </div>
-                </div>
+        {% for field in property_form %}
+          {% if field.name != 'location' %}
+            <div class="col-md-6">
+              <label class="form-label">{{ field.label }}</label>
+              {{ field }}
+              {% if field.errors %}
+                <div class="text-danger small">{{ field.errors }}</div>
+              {% endif %}
             </div>
-            <div class="col-lg-4 widget-break-lg sidebar-widget">
-                 Sidebar widgets here (search, categories, latest listings, etc.)
-            </div>
+          {% endif %}
+        {% endfor %}
+
+        <!-- Location Field with Map -->
+        <div class="col-md-12">
+          <label class="form-label">Location</label>
+          {{ property_form.location }}
+          {% if property_form.location.errors %}
+            <div class="text-danger small">{{ property_form.location.errors }}</div>
+          {% endif %}
+          <div id="map" style="height: 300px; margin-top: 10px;"></div>
         </div>
+
+      </div>
     </div>
-</main>
 
-<!-- Include Google Maps JavaScript API -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDR5RBpBMYmY56y4W4GwEwf3De-sKAaGaM&libraries=places"></script>
+    <!-- Image Formset -->
+    <div class="card">
+      <div class="card-header">Property Images</div>
+      <div class="card-body">
+        {{ image_formset.management_form }}
+        <div class="row">
+          {% for form in image_formset %}
+            <div class="col-md-3 mb-3">
+              {{ form.Image.label_tag }}<br>
+              {{ form.Image }}
+              {% if form.DELETE %}
+                <div class="form-check mt-1">
+                  {{ form.DELETE }} <label class="form-check-label">Delete</label>
+                </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Floor Plan Formset -->
+    <div class="card">
+      <div class="card-header">Floor Plans</div>
+      <div class="card-body">
+        {{ floorplan_formset.management_form }}
+        <div class="row">
+          {% for form in floorplan_formset %}
+            <div class="col-md-4 mb-3">
+              {{ form.Image.label_tag }}<br>
+              {{ form.Image }}
+              {% if form.DELETE %}
+                <div class="form-check mt-1">
+                  {{ form.DELETE }} <label class="form-check-label">Delete</label>
+                </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature Formset -->
+    <div class="card">
+      <div class="card-header">Features</div>
+      <div class="card-body">
+        {{ feature_formset.management_form }}
+        <div class="row">
+          {% for form in feature_formset %}
+            <div class="col-md-4 mb-3">
+              {{ form.features.label_tag }}<br>
+              {{ form.features }}
+              {% if form.DELETE %}
+                <div class="form-check mt-1">
+                  {{ form.DELETE }} <label class="form-check-label">Delete</label>
+                </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-4">
+      <button type="submit" class="btn btn-success btn-lg px-5">Save Property</button>
+    </div>
+
+  </form>
+</div>
+
 <script>
-    function initMap() {
-        // Default center and zoom level (Cairo)
-        var center = {lat: 30.0444, lng: 31.2357};  // Cairo coordinates
-        var zoom = 12;  // Zoom level
+  var map = L.map('map').setView([30.0444, 31.2357], 6); // Default to Cairo
 
-        // Initialize the map
-        var map = new google.maps.Map(document.getElementById('map-container'), {
-            center: center,
-            zoom: zoom,
-            mapTypeId: 'roadmap'
-        });
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 18,
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
 
-        // Marker to show the selected location
-        var marker = new google.maps.Marker({
-            position: center,
-            map: map,
-            draggable: true  // Allow the marker to be draggable
-        });
+  var marker;
 
-        // Update the hidden field and marker when clicking on the map
-        google.maps.event.addListener(map, 'click', function(event) {
-            marker.setPosition(event.latLng);
-            document.getElementById('id_location').value = event.latLng.lat() + ',' + event.latLng.lng();
-        });
+  map.on('click', function (e) {
+    var lat = e.latlng.lat.toFixed(6);
+    var lng = e.latlng.lng.toFixed(6);
 
-        // Update hidden field when marker is dragged
-        google.maps.event.addListener(marker, 'dragend', function() {
-            var position = marker.getPosition();
-            document.getElementById('id_location').value = position.lat() + ',' + position.lng();
-        });
-
-        // Add search functionality
-        var input = document.getElementById('search-city');
-        var searchBox = new google.maps.places.SearchBox(input);
-
-        // Listen for the event when a place is selected from the search box
-        document.getElementById('search-city-btn').addEventListener('click', function() {
-            var places = searchBox.getPlaces();
-            if (places.length == 0) {
-                alert("No places found");
-                return;
-            }
-
-            // Get the first place
-            var place = places[0];
-
-            // Center the map and place the marker at the searched location
-            map.setCenter(place.geometry.location);
-            map.setZoom(14);  // Adjust the zoom level
-
-            marker.setPosition(place.geometry.location);
-
-            // Update the hidden field
-            document.getElementById('id_location').value = place.geometry.location.lat() + ',' + place.geometry.location.lng();
-        });
+    if (marker) {
+      map.removeLayer(marker);
     }
 
-    google.maps.event.addDomListener(window, 'load', initMap);
-</script>
+    marker = L.marker([lat, lng]).addTo(map);
 
+    const input = document.getElementById("id_location");
+    if (input) {
+      input.value = lat + "," + lng;
+    }
+  });
+
+  window.onload = function () {
+    const input = document.getElementById("id_location");
+    if (input && input.value.includes(',')) {
+      const coords = input.value.split(',');
+      const lat = parseFloat(coords[0]);
+      const lng = parseFloat(coords[1]);
+      if (!isNaN(lat) && !isNaN(lng)) {
+        marker = L.marker([lat, lng]).addTo(map);
+        map.setView([lat, lng], 13);
+      }
+    }
+  };
+</script>
 {% endblock %}

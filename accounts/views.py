@@ -133,63 +133,142 @@ def Profile(request):
 
 
 
-
-
-
+from django.db import models  # أضف هذا الاستيراد في الأعلى
 from django.http import JsonResponse
 from django.shortcuts import render
 from langchain_community.llms import Ollama
 from django.apps import apps
-from django.db.models import Count
 from django.contrib.auth.models import User
+from property.models import Property  # استيراد النموذج الصحيح
 
 def generate_ollama3_text(request):
     if request.method == 'POST':
-        input_text = request.POST.get('input_text', '')  # Input question from user
-        
-        # Get all models dynamically
-        models = apps.get_models()
-        available_tables = {model._meta.model_name: model for model in models}
+        input_text = request.POST.get('input_text', '').lower()
         extracted_data = {}
 
-        # Extract data based on question
-        for table_name, model in available_tables.items():
-            if table_name in input_text.lower():
-                # Dynamically count records for each model
-                try:
-                    count = model.objects.count()
-                    extracted_data[table_name] = f"Total {table_name} records: {count}"
-                    
-                    # Optionally add titles or other fields if available
-                    if hasattr(model, 'title'):  # If model has 'title' field
-                        titles = ', '.join([getattr(obj, 'title') for obj in model.objects.all()])
-                        extracted_data[f'{table_name}_titles'] = f"{table_name.capitalize()} Titles: {titles}"
-                except Exception as e:
-                    extracted_data[table_name] = f"Error fetching data from {table_name}: {str(e)}"
+        # تحديد النماذج الأساسية المطلوبة
+        target_models = {
+            'user': User,
+            'property': Property,  # إضافة نموذج Property هنا
+            # يمكن إضافة المزيد من النماذج هنا
+        }
 
-        # Check for specific queries on the User model
-        if 'user' in input_text.lower():
-            total_users = User.objects.count()  # Count users
-            extracted_data['users'] = f"Total users: {total_users}"
-        
-        # Create dynamic query text
-        extracted_data_str = '\n'.join([f"- {key}: {value}" for key, value in extracted_data.items()])
+        # معالجة النماذج المحددة
+        for model_name, model in target_models.items():
+            if model_name in input_text:
+                try:
+                    # معلومات أساسية
+                    count = model.objects.count()
+                    extracted_data[model_name] = f'Total {model_name} records: {count}'
+                    
+                    # معالجة مخصصة لكل نموذج
+                    if model == User:
+                        usernames = ', '.join([user.username for user in model.objects.all()[:3]])
+                        extracted_data[f'{model_name}_list'] = f'Recent users: {usernames}'
+                        
+                    elif model == Property:
+                        # إضافة بيانات خاصة بالعقارات
+                        active_properties = model.objects.filter(status='active').count()
+                        latest_titles = ', '.join([p.title for p in model.objects.order_by('-created_at')[:3]])
+                        
+                        extracted_data['active_properties'] = f'Active properties: {active_properties}'
+                        extracted_data['latest_properties'] = f'Latest properties: {latest_titles}'
+                        
+                except Exception as e:
+                    extracted_data[model_name] = f'Error fetching {model_name} data: {str(e)}'
+
+        # معالجة استعلامات عامة عن العقارات
+        if 'property' in input_text or 'عقار' in input_text:
+            try:
+                avg_price = Property.objects.all().aggregate(models.Avg('price'))['price__avg']
+                extracted_data['avg_price'] = f'Average property price: {avg_price:.2f} EGP'
+            except Exception as e:
+                extracted_data['price_error'] = f'Could not calculate prices: {str(e)}'
+
+        # بناء الـ prompt
+        data_str = '\n'.join([f"- {k}: {v}" for k, v in extracted_data.items()]) or "No relevant data found"
         
         prompt = f"""
-        The user has asked: "{input_text}"
-        Here is the data available:
-
-        {extracted_data_str if extracted_data else "No specific data found in the database."}
-
-        Please answer the user's question as accurately as possible, even if it is not a direct match to the data.
+        السؤال: {input_text}
+        
+        البيانات المتاحة:
+        {data_str}
+        
+        التعليمات:
+        1. أجب باللغة العربية ما لم يطلب غير ذلك
+        2. استخدم الأرقام والتفاصيل المحددة
+        3. اذكر مصدر البيانات عندما يكون مناسبًا
+        4. اجعل الإجابات مختصرة ولكن معلوماتية
         """
         
-        # Use the Ollama model to analyze the question
-        llm = Ollama(model="llama3.2")
         try:
-            generated_text = llm.invoke(prompt)  # Generate the response
-            return JsonResponse({'generated_text': generated_text})  # Return as JSON
+            llm = Ollama(model="llama3.2")
+            response = llm.invoke(prompt)
+            return JsonResponse({'generated_text': response})
         except Exception as e:
-            return JsonResponse({'error': f"An error occurred while generating a response: {str(e)}"}, status=500)
+            return JsonResponse({'error': f"خطأ في توليد الرد: {str(e)}"}, status=500)
 
     return render(request, 'account/chatbot.html')
+
+
+
+
+
+
+# from django.http import JsonResponse
+# from django.shortcuts import render
+# from langchain_community.llms import Ollama
+# from django.apps import apps
+# from django.db.models import Count
+# from django.contrib.auth.models import User
+
+# def generate_ollama3_text(request):
+#     if request.method == 'POST':
+#         input_text = request.POST.get('input_text', '')  # Input question from user
+        
+#         # Get all models dynamically
+#         models = apps.get_models()
+#         available_tables = {model._meta.model_name: model for model in models}
+#         extracted_data = {}
+
+#         # Extract data based on question
+#         for table_name, model in available_tables.items():
+#             if table_name in input_text.lower():
+#                 # Dynamically count records for each model
+#                 try:
+#                     count = model.objects.count()
+#                     extracted_data[table_name] = f"Total {table_name} records: {count}"
+                    
+#                     # Optionally add titles or other fields if available
+#                     if hasattr(model, 'title'):  # If model has 'title' field
+#                         titles = ', '.join([getattr(obj, 'title') for obj in model.objects.all()])
+#                         extracted_data[f'{table_name}_titles'] = f"{table_name.capitalize()} Titles: {titles}"
+#                 except Exception as e:
+#                     extracted_data[table_name] = f"Error fetching data from {table_name}: {str(e)}"
+
+#         # Check for specific queries on the User model
+#         if 'user' in input_text.lower():
+#             total_users = User.objects.count()  # Count users
+#             extracted_data['users'] = f"Total users: {total_users}"
+        
+#         # Create dynamic query text
+#         extracted_data_str = '\n'.join([f"- {key}: {value}" for key, value in extracted_data.items()])
+        
+#         prompt = f"""
+#         The user has asked: "{input_text}"
+#         Here is the data available:
+
+#         {extracted_data_str if extracted_data else "No specific data found in the database."}
+
+#         Please answer the user's question as accurately as possible, even if it is not a direct match to the data.
+#         """
+        
+#         # Use the Ollama model to analyze the question
+#         llm = Ollama(model="llama3.2")
+#         try:
+#             generated_text = llm.invoke(prompt)  # Generate the response
+#             return JsonResponse({'generated_text': generated_text})  # Return as JSON
+#         except Exception as e:
+#             return JsonResponse({'error': f"An error occurred while generating a response: {str(e)}"}, status=500)
+
+#     return render(request, 'account/chatbot.html')

@@ -6,6 +6,11 @@ from django.core.cache import cache
 
 def home(request):
     propertys = models.Property.objects.order_by("-created_at")[:6]
+    session_data = request.session.items()  # عرض جميع بيانات الجلسة
+    # requ  est.session.flush()  # يحذف جميع بيانات الجلسة
+
+    print(session_data)
+
     # cache.set('propertys', propertys, 60 * 15)  # Cache for 15 minutes
     return render(request, 'settings/index.html', {'propertys':propertys})
 
